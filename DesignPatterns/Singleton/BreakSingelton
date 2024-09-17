@@ -1,0 +1,98 @@
+We can Break singelton using
+*****************************Reflection API**************************************
+The Reflection API provides the ability to inspect and modify the runtime behavior of applications.
+It allows you to examine or modify the structure and behavior of classes, interfaces, fields, methods,
+and constructors at runtime.
+
+  // Gives the constructor object of my class
+        // Needs to throw an exception when using Reflection API
+        Constructor<Samosa> constructor = Samosa.class.getDeclaredConstructor();
+        //Here we are making constructor as accessible or public
+        constructor.setAccessible(true);
+        //Create new instance using this constructor
+        Samosa s4 = constructor.newInstance();
+
+        System.out.println(s4.hashCode()); // 1452126962
+        //Here we can see we are getting diff object using REflection API
+
+Solution:
+1. Throws an exception inside constructor if object is not null
+    private Samosa(){
+        if (samosa!=null)
+            throw new RuntimeException("You are trying to break Singleton");
+    }
+2. Use Enums.
+
+
+*****************************Serialization**************************************
+
+Serialization is a fundamental concept in Java that enables the conversion of an object's state into a byte
+stream, facilitating various operations like saving objects to files, transmitting them over networks,
+ or persisting them in databases. However, when applied to the Singleton Design Pattern, serialization can
+ inadvertently compromise the Singleton's guarantee of a single instance.
+--> Serialization is the process of converting an object's state into a byte stream,
+enabling the object's data to be easily stored or transmitted. Conversely, deserialization reconstructs
+the object from the byte stream, restoring its original state.
+--> Serializable Interface: In Java, a class must implement the java.io.Serializable interface to allow its
+objects to be serialized. This is a marker interface without any methods.
+--> Serialization: Converts an object into a byte stream.
+--> Deserialization: Reconstructs the object from the byte stream.
+
+Steps to perform serialization and deserialization:
+1. Implement Serializable interface from my class.
+2. create ObjectOutputStream object and pass new FileOutputStream("abc.ob")
+--> Give any name to file
+--> Then writeObject(s1) which writes our Samosa object we created
+--> Throws IOException while serialization and close ObjectOutputStream.
+//Serialization
+           ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("abc.ob"));
+           oos.writeObject(s1);
+           oos.close();
+
+3. Deserialization :
+-->  create ObjectInputStream object and pass new FileInputStream("abc.ob") with existing file name.
+--> Perform readObject on stream which will give Object class which we type cast to samosa.
+--> then close it
+--> Deserialization throws ClassNotFoundException exception
+ //DeSerialization
+        ObjectInputStream ois =  new ObjectInputStream(new FileInputStream("abc.ob"));
+        Samosa s2  =(Samosa) ois.readObject();
+        ois.close();
+
+This will give us the new instance of Samosa.
+
+$$$$$$$ To avoid this we can implement readResolve Method inside our Samosa Class.
+// We are implementing it and during deserialization we will get same object
+    protected Object readResolve(){
+        return samosa;
+    }
+
+*****************************Clonning**************************************
+Cloning in Java refers to the process of creating an exact copy of an existing object.
+This is typically achieved by implementing the Cloneable interface and overriding the clone() method from the Object class.
+--> Cloneable Interface:
+ A marker interface indicating that a class allows for field-for-field copies of instances via the clone() method.
+--> clone() Method:
+A protected method in the Object class that performs the cloning operation.
+It must be overridden to provide public access and customized cloning behavior.
+
+@Override
+public Object clone() throws CloneNotSupportedException {
+    return super.clone(); //creates default shallow copy
+}
+
+Cloning Process:
+Shallow Copy: The default implementation of clone() performs a shallow copy, duplicating the object's fields but not
+the objects referenced by those fields.
+Deep Copy: A customized clone() method can perform a deep copy, recursively cloning all mutable objects referenced by the fields.
+
+Steps to Clone :
+1. Implement the cloneable interface
+2. Override the clone method which throws CloneNotSupportedException and returns super.clone()
+3. In client class,
+Samosa s2 = (Samosa) s1.clone();
+create a new object with clone method  which throws CloneNotSupportedException and return object class which we
+need to typecast.
+
+$$$$$$To avoid it we can override clone method and pass the same object we need or pass the new runtimeException.
+

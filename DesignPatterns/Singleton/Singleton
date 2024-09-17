@@ -41,3 +41,19 @@ It is not thraed safe as multiple threads can go inside the static block and cre
  Eager initialization as we are creating the object before it is called.
  This is naturally thread safe.
  Instance is created even if the client application might not be using it, leading to resource wastage.
+
+
+************We can also make singleton using ENUM**********************
+An enum (short for enumeration) is a special data type in Java that enables for a variable to be a set of
+predefined constants.
+The variable must equal one of the values that have been predefined for it.
+Each enum constant is a singleton by default, meaning that only one instance of each enum constant exists in the JVM.
+ --> Serialization Mechanism Handled Automatically
+     Built-in Serialization: Enums in Java handle serialization out of the box.
+     The JVM ensures that during deserialization, the same instance is returned, maintaining the
+     Singleton property without needing to implement Serializable or handle the readResolve method.
+
+ --> Protection Against Reflection Attacks
+     Reflection Safety: Enums are inherently protected against reflection-based attacks that can create
+      multiple instances. Attempting to use reflection to instantiate an enum will result in an exception,
+      preserving the Singleton property.
