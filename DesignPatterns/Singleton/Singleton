@@ -1,0 +1,43 @@
+The Singleton Pattern ensures that a class has only one instance throughout the application's lifecycle
+and provides a global access point to that instance. This is particularly useful for managing shared
+resources such as database connections, configuration settings, logging, and thread pools.
+
+
+
+1. Singleton Pattern :
+
+--> Ensure a class has only one instance
+--> provide a global point of access to it.
+
+
+
+Common Use Cases
+Logging: A single logger instance can be used throughout an application to log information.
+Configuration Settings: Centralized configuration management where configuration parameters are accessed globally.
+Database Connections: Managing a single database connection pool or connection manager.
+Caching: A global cache manager that handles cached data across the application.
+Thread Pools: Managing a pool of threads used across the application.
+
+
+Steps to make Singleton:
+1. Make constructor private
+2. create static method which client can call to get object
+(static because we can't create the object to access this method)
+3. create a variable which store the objet.
+(make this variable as static and private because we can't use not static fields inside static method)
+4. Inside static method if var is null then create new object and return it.
+
+Lazy Initialization:
+
+--> private static Samosa samosa;
+This is a lazy way of initialization since we are not creating the object at start
+Instance is created only when needed, saving resources.
+we create it when we need it or when the getSamosa() method is called.
+It is not thraed safe as multiple threads can go inside the static block and create many instances.
+
+ Eager initialization :
+
+ --> private static Jalebi jalebi = new Jalebi();
+ Eager initialization as we are creating the object before it is called.
+ This is naturally thread safe.
+ Instance is created even if the client application might not be using it, leading to resource wastage.

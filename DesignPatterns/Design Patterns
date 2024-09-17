@@ -1,0 +1,7 @@
+Design patterns are proven solutions to common software design problems.
+
+Categories of Design Patterns :
+
+Creational Patterns: Deal with object creation mechanisms, trying to create objects in a manner suitable to the situation.
+Structural Patterns: Concerned with object composition and how classes and objects can be combined to form larger structures.
+Behavioral Patterns: Focus on communication between objects, what goes on between objects and how they operate together.
