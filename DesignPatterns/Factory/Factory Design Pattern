@@ -1,0 +1,25 @@
+ The Factory Design Pattern provides an interface for creating objects in a superclass but allows subclasses to alter the
+ type of objects that will be created.
+ --> In other words, we can create objects based on a condition without calling the direct concrete classes but the factory method
+ --> Client don't know the underlying object implementation.
+ --> Encapsulation of Object Creation: The pattern hides the instantiation logic from the client, promoting loose coupling.
+ --> Abstraction: Clients interact with abstract interfaces rather than concrete implementations.
+--> Flexibility and Scalability: New object types can be introduced without modifying existing client code. Hence supports
+open-close principle.
+
+******************************************Key Components of the Factory Pattern******************************************
+1. Product
+Definition: An abstract interface or abstract class that defines the type of objects the factory method creates.
+Example: An interface Shape with methods like draw().
+
+2. Concrete Product
+Definition: Concrete classes that implement the Product interface.
+Example: Classes Circle, Rectangle, and Square implementing Shape.
+
+3. Creator (Factory)
+Definition: An abstract class or interface that declares the factory method.
+Example: An abstract class ShapeFactory with a method createShape().
+
+4. Concrete Creator
+Definition: Subclasses that implement the factory method to create specific products.
+Example: Classes CircleFactory, RectangleFactory extending ShapeFactory and implementing createShape().
